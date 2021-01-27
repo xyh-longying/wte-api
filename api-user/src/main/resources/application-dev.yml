@@ -1,0 +1,69 @@
+server:
+  port: 8030
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/wte_dev?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 127.0.0.1 # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password: 123456 # Redis服务器连接密码（默认为空）
+    lettuce:
+      pool:
+        max-active: 8 # 连接池最大连接数（使用负值表示没有限制）
+        max-idle: 8 # 连接池中的最大空闲连接
+        min-idle: 0 # 连接池中的最小空闲连接
+        max-wait: -1ms # 连接池最大阻塞等待时间（使用负值表示没有限制）
+    timeout: 3000ms # 连接超时时间（毫秒）
+  data:
+    mongodb:
+      host: 127.0.0.1 # mongodb的连接地址
+      port: 27017 # mongodb的连接端口号
+      database: wte #mongodb连接的数据库
+
+jwt:
+  tokenHeader: token #JWT存储的请求头
+  tokenHead: WTE #JWT负载中拿到开头
+  secret: wteSecret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(单位：秒，60*60*24*7)
+  generate: RSA #JWT加密解密方式（RSA：nimbus非对称方式加密，HMAC：nimbus对称方式加密，JJWT：jjwt方式生成token）
+
+RSA: # RSA 非对称加密
+  filename: jwt.jks
+  alias: jwt
+  storePwd: wte2021
+  pwd: wte123
+
+springfox:
+  documentation:
+    enabled: true #是否启用swagger
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #用于打印mybatis sql 日志
+
+redis:
+  key:
+    prefix:
+      imgCode: imgCode:authCode
+      msgCode: msgCode:authCode
+    expire:
+      imgCode: 120
+
+msgCodeSend:
+  media: simulator # simulator-模拟器 ali-阿里云短信服务平台
+
+ali:
+  api:
+    isSend: true
+    regionId: cn-hangzhou
+    accessKeyId: LTAI4GGBnKWhULyXW212LV3Q
+    accessSecret: VIkrF0UkpbU9aWUHqoelXx0PW8iCd8
+    sendSms:
+      signName: WTE
+      templateCode:
+        regist: SMS_210066315

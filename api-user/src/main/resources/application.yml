@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: api-user
+  profiles:
+    active: dev
+
+
+
